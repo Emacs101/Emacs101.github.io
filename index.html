@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emacs-101</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 40px;
+      background: white;
+      font-family: monospace;
+      font-size: 15px;
+      color: black;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-wrapper {
+      margin-bottom: 20px;
+    }
+
+    img {
+      height: 7em;
+    }
+
+    .line {
+      display: flex;
+      white-space: pre;
+    }
+
+    .fixed {
+      color: blue;
+    }
+
+    .char {
+      width: 1ch;
+      height: 1em;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .cursor {
+      background-color: black;
+      color: white;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .bottom-row {
+  margin-top: 30px;
+  font-size: 15px;
+  color: black;
+  max-width: 600px;
+  text-align: justify;
+  align-self: flex-start;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top row: image -->
+    <div class="image-wrapper">
+      <img src="logo.svg" alt="icon" />
+    </div>
+
+    <!-- Middle row: M-x typing effect -->
+    <div class="line">
+      <span class="fixed">M-x </span><span id="line"></span>
+    </div>
+
+    <!-- Bottom row: extra message -->
+    <div class="bottom-row">
+      <p>Hello, my name is Andrei Sukhovskii. I’m a gentleman scientist,<small><sup>*</sup></small> writer, dreamer, geek, and procrastinator. This combination of traits inevitably leads one to Emacs—the text editor no mortal has ever truly mastered.</p>
+      
+      <p>This site is dedicated to Emacs tutorials—ones I wanted to read so badly, I ended up writing them (badly, I’m afraid).</p>
+
+      <p>So far, I’ve only finished one—and, ironically, it’s on productive writing. More specifically, it’s about Howm: a clever and tidy note-taking package. Feel free to grab a copy <a href="howm.html"><b>here</b></a>.</p>
+
+      <p><br /></p>
+
+      <hr />
+
+<p><small><sup>*</sup>A fancy way of saying I’m a scholar without an official job.</small></p>
+
+
+    </div>
+  </div>
+
+  <script>
+    const line = document.getElementById("line");
+    const maxLength = 40;
+    const slots = [];
+
+    for (let i = 0; i < maxLength; i++) {
+      const span = document.createElement("span");
+      span.className = "char";
+      span.textContent = " ";
+      line.appendChild(span);
+      slots.push(span);
+    }
+
+    let cursorPos = 0;
+
+    const program = [
+      ...("find-a-tutorial").split("").map(c => ({ action: "type", char: c })),
+      ...Array("find-a-tutorial".length).fill({ action: "backspace" }),
+      ...("write-a-tutorial").split("").map(c => ({ action: "type", char: c })),
+    ];
+
+    function step() {
+      slots.forEach(slot => slot.classList.remove("cursor"));
+
+      if (program.length > 0) {
+        const cmd = program.shift();
+
+        if (cmd.action === "type") {
+          slots[cursorPos].textContent = cmd.char;
+          cursorPos = Math.min(cursorPos + 1, maxLength - 1);
+        } else if (cmd.action === "backspace") {
+          cursorPos = Math.max(0, cursorPos - 1);
+          slots[cursorPos].textContent = " ";
+        }
+
+        slots[cursorPos].classList.add("cursor");
+        setTimeout(step, 150);
+      } else {
+        slots[cursorPos].classList.add("cursor");
+      }
+    }
+
+    step();
+  </script>
+
+</body>
+</html>
+
