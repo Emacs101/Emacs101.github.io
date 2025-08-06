@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Howm</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 40px;
+      background: white;
+      font-family: monospace;
+      font-size: 15px;
+      color: black;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      text-decoration: none;
+      background-color: #eee;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-wrapper {
+      margin-bottom: 10px;
+    }
+
+    img {
+      height: 17em;
+    }
+
+    .bottom-row {
+      margin-top: 10px;
+      font-size: 15px;
+      color: black;
+      max-width: 600px;
+      text-align: justify;
+      align-self: flex-start;
+    }
+
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="home-button">Home</a>
+
+  <div class="container">
+    <!-- Top row: image -->
+    <div class="image-wrapper">
+      <img src="Bunny.gif" alt="icon" />
+    </div>
+
+    <div class="bottom-row">
+      The tutorial <i>Efficient Note-taking in Emacs with Howm</i> is for people who are:
+      
+      <ol>
+<li>Drowning in a flood of information</li>
+<li>Trying to use Emacs as a lifeboat</li>
+<li>Looking for a package as simple and reliable as a paddle</li>
+</ol>
+      
+      You can download the book in <a href="https://raw.githubusercontent.com/Emacs101/howm-manual/main/Howm_tutorial_eng.pdf" download>PDF</a> or ePub format. The layout will differ slightly, but the content is the same.
+  
+    </div>
+
+</body>
+</html>
